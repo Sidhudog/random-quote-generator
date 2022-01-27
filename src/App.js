@@ -8,7 +8,7 @@ const App = () => {
     const [bgimage, setBgimage] = useState('');
     const url = "https://api.adviceslip.com/advice";
     const ClientId ="wNLZLEboBp9ux77jTpCT_kCI21Jt4z3nPleek55sbHE";
-    const img_url = `https://api.unsplash.com/photos/random/?client_id=${ClientId}`;
+    const img_url = `https://api.unsplash.com/photos/random?client_id=${ClientId}`;
     const fetchAdvice=() =>{
         axios
           .get(url)
@@ -19,12 +19,14 @@ const App = () => {
             console.log(error);
           });
         axios
-            .get(img_url)
+            .get(img_url,{
+              params: {
+                query:'scenary',
+              }
+            })
             .then((response) => {
-                console.log(
-                  response.data.urls.raw + "&query=scenary&h=900&w=1200"
-                );
-                setBgimage(response.data.urls.raw + '&query=scenary&h=900&w=1200');
+                console.log(response.data.urls.raw + "&w=1600&h=900");
+                setBgimage(response.data.urls.raw + '&w=1600&h=900');
             // setBgimage(response);
             })
             .catch((error) => {
